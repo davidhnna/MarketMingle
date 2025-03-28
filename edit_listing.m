@@ -35,3 +35,15 @@ function listings = edit_listing(users, listings)
        listings{selectedIndex, 3} = input('Enter new price: ');
        listings{selectedIndex, 4} = input('Enter new condition: ', 's');
        fprintf('✅ Listing updated successfully!\n');
+   elseif action == 2
+       listings(selectedIndex, :) = [];
+       fprintf('✅ Listing removed successfully!\n');
+   else
+       fprintf('Invalid action.\n');
+   end
+   % Ensure the data directory exists
+   if ~exist('../data', 'dir')
+       mkdir('../data');
+   end
+   save('../data/listings.mat', 'listings');
+end
