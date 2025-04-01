@@ -1,35 +1,43 @@
 function users = registerUser(users, name, email, location, priceRange, category, condition)
-   % REGISTERUSER - Adds a new user to the users cell array.
-   % Prevents duplicate emails and saves data to users.mat.
-   % Ensure users is initialized properly
-   if isempty(users)
-       users = {};
-   end
-   % Check if email already exists
-   emailExists = false;
-   if ~isempty(users) % Only check for duplicate emails if users is not empty
-       emailExists = any(cellfun(@(x) strcmp(x, email), users(:, 2)));
-   end
-   if emailExists
-       fprintf('Error: Email "%s" is already registered.\n', email);
-   else
-       % Create preferences structure
-       preferences = struct('PriceRange', priceRange, ...
-                            'Category', category, ...
-                            'Condition', condition);
-      
-       % Add the new user to the cell array
-       newUser = {name, email, location, preferences};
-       users = [users; newUser];
-       % Define save directory and file
-       saveDir = '../data';
-       saveFile = fullfile(saveDir, 'users.mat');
-       % Check if directory exists; if not, create it
-       if ~exist(saveDir, 'dir')
-           mkdir(saveDir);
-       end
-       % Save the updated users array
-       save(saveFile, 'users');
-       fprintf('Success! User "%s" has been registered.\n', name);
-   end
+    % Ensure users is always a cell array
+    if isempty(users)
+        users = {};  
+    end
+    
+    % Check if email already exists
+    if ~isempty(users) && size(users, 2) >= 2
+        emailExists = any(strcmp(users(:, 2), email));
+    else
+        emailExists = false;
+    end
+
+    if emailExists
+        fprintf('Error: Email "%s" is already registered.\n', email);
+    else
+        % Create preferences structure
+        preferences = struct('PriceRange', priceRange, ...
+                             'Category', category, ...
+                             'Condition', condition);
+
+        % Ensure consistent structure before appending
+        if ~isempty(users) && size(users, 2) ~= 4
+            error('Inconsistent structure: users must have exactly 4 columns.');
+        end
+
+        % Append the new user
+        users = [users; {name, email, location, preferences}];
+
+        % Define save directory and file
+        saveDir = '../data';
+        saveFile = fullfile(saveDir, 'users.mat');
+
+        % Create directory if it doesn't exist
+        if ~exist(saveDir, 'dir')
+            mkdir(saveDir);
+        end
+
+        % Save the updated users array
+        save(saveFile, 'users');
+        fprintf('Success! User "%s" has been registered.\n', name);
+    end
 end
