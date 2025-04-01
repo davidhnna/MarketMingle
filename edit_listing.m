@@ -1,3 +1,4 @@
+
 function listings = edit_listing(users, listings)
    if isempty(users)
        fprintf('No registered users. Please register first.\n');
@@ -34,10 +35,10 @@ function listings = edit_listing(users, listings)
        listings{selectedIndex, 2} = input('Enter new item name: ', 's');
        listings{selectedIndex, 3} = input('Enter new price: ');
        listings{selectedIndex, 4} = input('Enter new condition: ', 's');
-       fprintf('✅ Listing updated successfully!\n');
+       fprintf('Listing updated successfully!\n');
    elseif action == 2
        listings(selectedIndex, :) = [];
-       fprintf('✅ Listing removed successfully!\n');
+       fprintf('Listing removed successfully!\n');
    else
        fprintf('Invalid action.\n');
    end
