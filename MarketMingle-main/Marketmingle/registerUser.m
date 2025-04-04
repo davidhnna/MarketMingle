@@ -1,20 +1,22 @@
+% function for registering users
 function users = registerUser(users, name, email, location, priceRange, category, condition)
-    % Ensure users is always a cell array
+  
+    % Ensuring that users is always a cell array
     if isempty(users)
         users = {};  
     end
     
-    % Check if email already exists
+    % Check if email the email already exisits  to avoid duplicates
     if ~isempty(users) && size(users, 2) >= 2
         emailExists = any(strcmp(users(:, 2), email));
     else
         emailExists = false;
     end
-
+    % error handling message if the user is already registered
     if emailExists
         fprintf('Error: Email "%s" is already registered.\n', email);
     else
-        % Create preferences structure
+        % Create a structure for user prefrences instead of making another cell array 
         preferences = struct('PriceRange', priceRange, ...
                              'Category', category, ...
                              'Condition', condition);
@@ -24,10 +26,10 @@ function users = registerUser(users, name, email, location, priceRange, category
             error('Inconsistent structure: users must have exactly 4 columns.');
         end
 
-        % Append the new user
+        % Append the new registered user
         users = [users; {name, email, location, preferences}];
 
-        % Define save directory and file
+        % Defining the save directory and file
         saveDir = '../data';
         saveFile = fullfile(saveDir, 'users.mat');
 
