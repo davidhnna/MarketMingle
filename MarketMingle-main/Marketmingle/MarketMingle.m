@@ -113,7 +113,7 @@ case 6   % Find Best Matches
        fprintf("No user preferences available. Please register first.\n");
        continue;
    end
-   % Directly call bestMatches without asking for email again
+  
    bestMatches(users, listings);
 
 
