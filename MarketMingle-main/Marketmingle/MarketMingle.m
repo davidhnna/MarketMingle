@@ -2,7 +2,7 @@ clc;
 clear;
 close all;
 
-saveDir = fullfile('..', 'data'); % Ensure cross-platform compatibility
+saveDir = fullfile('..', 'data'); 
 saveFile = fullfile(saveDir, 'listings.mat');
 
 
@@ -19,8 +19,8 @@ if strcmpi(choice, 'y') && exist(saveFile, 'file')
     disp("Loaded existing listings data.");
 else
   
-    listings = {}; % Initialize an empty cell array
-    save(saveFile, 'listings'); % Save the empty file
+    listings = {}; 
+    save(saveFile, 'listings');
     disp("Created a new listings data file.");
 end
 
@@ -35,8 +35,8 @@ if strcmpi(choice, 'y') && exist(saveFile, 'file')
  disp("Loaded existing user data.");
 else
 
- users = {}; % Initialize an empty cell array
- save(saveFile, 'users'); % Save the empty file
+ users = {}; 
+ save(saveFile, 'users');
  disp("Created a new user data file.");
 end
 
@@ -52,16 +52,16 @@ fprintf("6. Find Best Matches\n");
 fprintf("7. Simulate Transaction\n");
 fprintf("8. Set Preferences\n");
 fprintf("9. Exit\n");
-choice = input("Enter your choice: ", 's'); % Read as string to prevent errors
+choice = input("Enter your choice: ", 's'); 
 
 if isempty(choice) || isnan(str2double(choice))
     fprintf("Invalid choice. Please enter a number between 1 and 9.\n");
-    continue;  % Skip this loop iteration
+    continue; 
 end
 choice = str2double(choice);
 if choice < 1 || choice > 9
     fprintf("Invalid choice. Please enter a number between 1 and 9.\n");
-    continue;  % Skip this loop iteration
+    continue;  
 end
 switch choice
     case 1  % Register User
@@ -120,7 +120,7 @@ case 6   % Find Best Matches
     case 7   % Simulate Transaction
     if isempty(listings)
         fprintf("No listings available for transaction.\n");
-        continue;  % Skip this iteration if no listings are present
+        continue;  
     end
 
    
@@ -136,17 +136,17 @@ case 6   % Find Best Matches
  
   if isempty(users) || size(users, 2) < 4
       fprintf('No users registered yet or invalid data structure.\n');
-      continue;  % Skip if no users or incorrect data structure
+      continue;  
   end
   
   email = input('Enter your email: ', 's');
   userIndex = find(strcmp(users(:, 2), email), 1);
   if isempty(userIndex)
       fprintf('User not found. Please register first.\n');
-      continue;  % Skip if the user is not found
+      continue; 
   end
  
-  users = preferences(users, userIndex);  % Update user preferences
+  users = preferences(users, userIndex); 
 
     case 9  % Exit
         fprintf("Exiting program...\n");
