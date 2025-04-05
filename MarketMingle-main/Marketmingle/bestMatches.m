@@ -3,14 +3,14 @@ function bestMatches = bestMatches(users, listings)
      fprintf('No users or listings available.\n');
      return;
  end
- % Identify user by email for consistency with other functions
+
  userEmail = input('Enter your registered email: ', 's');
  userIndex = find(strcmp(users(:, 2), userEmail), 1);
  if isempty(userIndex)
      fprintf('User not found for email: %s\n', userEmail);
      return;
  end
- % Extract user preferences safely
+
  preferences = users{userIndex, 4};
  if isstruct(preferences)
      preferredCategory = preferences.Category;
@@ -23,14 +23,14 @@ function bestMatches = bestMatches(users, listings)
      return;
  end
  preferredLocation = users{userIndex, 3}; % User's saved location
- % Initialize and calculate match scores
+
  scores = calculate_match_scores(listings, preferredCategory, maxPrice, preferredLocation);
- % Debugging: Print the scores to check if they are calculated correctly
+
  disp('Calculated scores:');
  disp(scores);
- % Sort listings by score in descending order
+ 
  [~, sortedIndices] = sort(scores, 'descend');
-  % Display top matches
+
  fprintf('\nBest Matches for You:\n');
  bestMatches = {};
  matchCount = 0;
@@ -51,15 +51,15 @@ function scores = calculate_match_scores(listings, preferredCategory, maxPrice, 
    scores = zeros(size(listings, 1), 1);
    for i = 1:size(listings, 1)
        score = 0;
-       % Category match (higher weight)
+     
        if strcmp(listings{i, 4}, preferredCategory)
            score = score + 50;
        end
-       % Price match (proportional scoring)
+      
        if listings{i, 3} <= maxPrice
            score = score + round((maxPrice - listings{i, 3}) / maxPrice * 30);
        end
-       % Location match (minor bonus)
+ 
        if strcmp(listings{i, 5}, preferredLocation)
            score = score + 20;
        end
