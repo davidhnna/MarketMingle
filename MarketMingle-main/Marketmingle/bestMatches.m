@@ -22,7 +22,7 @@ function bestMatches = bestMatches(users, listings)
      fprintf('Error: Invalid user preferences format.\n');
      return;
  end
- preferredLocation = users{userIndex, 3}; % User's saved location
+ preferredLocation = users{userIndex, 3}; 
 
  scores = calculate_match_scores(listings, preferredCategory, maxPrice, preferredLocation);
 
