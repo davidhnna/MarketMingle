@@ -14,7 +14,7 @@ function bestMatches = bestMatches(users, listings)
  preferences = users{userIndex, 4};
  if isstruct(preferences)
      preferredCategory = preferences.Category;
-     maxPrice = preferences.PriceRange(2); % Upper limit of price range
+     maxPrice = preferences.PriceRange(2); 
  elseif isnumeric(preferences) && length(preferences) == 2
      preferredCategory = users{userIndex, 5};
      maxPrice = preferences(2);
