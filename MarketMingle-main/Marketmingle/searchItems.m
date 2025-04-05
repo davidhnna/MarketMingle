@@ -9,20 +9,20 @@ function listings = searchItems(listings)
     maxSearchPrice = input("Enter maximum price (or press Enter to skip): ", 's');
     searchCondition = input("Enter condition ('New', 'Good', 'Fair', 'Like New', 'Any' or press Enter to skip): ", 's');
 
-    % Convert price inputs to numbers
+   
     if isempty(minSearchPrice)
-        minSearchPrice = -inf; % No lower limit
+        minSearchPrice = -inf;
     else
         minSearchPrice = str2double(minSearchPrice);
     end
 
     if isempty(maxSearchPrice)
-        maxSearchPrice = inf; % No upper limit
+        maxSearchPrice = inf; 
     else
         maxSearchPrice = str2double(maxSearchPrice);
     end
 
-    % Filter listings based on search criteria
+   
     fprintf("\n=== Search Results ===\n");
     found = false;
 
