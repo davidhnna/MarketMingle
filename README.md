@@ -1,1 +1,1 @@
-An app that creates a market database, allowing users to list, modify, and sell items.
+An app built using matlab that allows users to create a market database, list, modify, and sell items.
